@@ -7,28 +7,35 @@
 
 const express = require('express')
 const bodyParser = require('body-parser')
+const path = require('path')
+require('dotenv').config({path: path.resolve(__dirname, './.env')})
 
-const app = express()
-const port = 4000
+const app = express() // initializes express
+
+
 
 // uses body parser
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
+
+
 // adds all the routes
-users = require('routes/Users')
+users = require('./routes/users')
 app.use('/users', users)
 
-messages = require('routes/Messages')
+messages = require('./routes/messages')
 app.use('/messages', messages)
 
-servers = require('routes/Servers')
+servers = require('./routes/servers')
 app.use('/servers', servers)
 
-channels = require('routes/Channels')
+channels = require('./routes/channels')
 app.use('/channels', channels)
 
+
+
 // listens to the port
-app.listen(port, () => {
-    console.log(`server is up and running on port ${port}`)
+app.listen(process.env.PORT, () => {
+    console.log(`server is up and running on port ${process.env.PORT}`)
 })
