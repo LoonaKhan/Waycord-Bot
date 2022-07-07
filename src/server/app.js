@@ -24,15 +24,6 @@ app.use(bodyParser.urlencoded({extended: false}))
 users = require('./routes/users')
 app.use('/users', users)
 
-messages = require('./routes/messages')
-app.use('/messages', messages)
-
-servers = require('./routes/servers')
-app.use('/servers', servers)
-
-channels = require('./routes/channels')
-app.use('/channels', channels)
-
 
 
 // listens to the port

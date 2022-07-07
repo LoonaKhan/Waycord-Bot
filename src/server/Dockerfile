@@ -1,20 +1,21 @@
 # node version
+FROM mariadb:10.8.3
 FROM node:16.13.1
 
 # copies the server package
-COPY src/server/ ./
+COPY . /app
 
 # working directory = src/server.
 # running npm start or node app.js now works as normal
-WORKDIR ./
+WORKDIR /app
 
 # runs npm install
 RUN npm install
 
 # env variables
 ENV PORT=4000
-ENV USERNAME=
-ENV PASSWORD=
+ENV USERNAME='loona'
+ENV PASSWORD='1234'
 ENV HOST='localhost'
 
 # actually forwards the port
