@@ -21,8 +21,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 
 // adds all the routes
-users = require('./routes/users')
-app.use('/users', users)
+
 
 
 
