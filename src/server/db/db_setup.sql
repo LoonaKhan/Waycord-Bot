@@ -1,51 +1,47 @@
+-- todo: move to regular mysql over mariadb?
+
 create DATABASE Waycord;
 
 USE Waycord;
 
 
--- Users
-CREATE TABLE USERS(
-  id INT NOT NULL UNIQUE , -- id's are not null because they already exist.
-  name varchar(255) NOT NULL UNIQUE,
-  country varchar(2) NOT NULL
-);
 
 -- Messages
 CREATE TABLE MESSAGES(
-    id INT NOT NULL UNIQUE ,
+    id INT NOT NULL UNIQUE,
     author INT NOT NULL, -- sender of the message
     contents TEXT NOT NULL, -- message contents, the text.
     attachments TEXT NOT NULL, -- this is the url to any attachments. todo: MAKE IT AN ARRAY?
-    channel INT NOT NULL, -- what channel it was sent in
 
-    FOREIGN KEY (author) REFERENCES  USERS(id),
-    FOREIGN KEY (channel) REFERENCES CHANNELS(id),
-    PRIMARY KEY (id)
+    -- what channel it was sent in.
+    -- we only store the id and not a channel object
+    -- since we can fetch the channel from discords own db
+    channel INT NOT NULL
+
+    -- creation_time -- date created
 );
 
 -- Servers
--- todo: users can see server stats, but no storing?
+-- in order to keep anonymity, we only store certain bits of information.
+-- servers are mainly for analytics
 CREATE TABLE SERVERS(
-    id INT NOT NULL UNIQUE
-    -- members (array of ints?)
-    -- member count?
-    -- creation date?
-    -- server location
-    -- icon url
-    -- boost level
-    -- name
+    id INT NOT NULL UNIQUE, -- make it auto increment? so that it has no connection to the server
+    member_count INT NOT NULL,
+    creation_date date NOT NULL, -- MAYBE JUST MAKE THIS TEXT? easier to encrypt
+    region VARCHAR(2) NOT NULL, -- might need to be longer
+    boost_level INT NOT NULL
 );
 
--- Channels?
--- todo: is there even a point in having this?
-CREATE TABLE CHANNELS(
-    id INT NOT NULL UNIQUE ,
-    name VARCHAR(255)
-);
+-- archive
+-- contains a message + title and other info to archive
+-- the main part of the app
+CREATE TABLE ARCHIVES(
+    id INT AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    creator INT NOT NULL,
+    message_id INT NOT NULL,
+    -- creation_time -- date created
 
--- emojis?
-CREATE TABLE EMOJIS(
-    id INT NOT NULL UNIQUE ,
-    name VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255) NOT NULL
+    PRIMARY KEY (id),
+    FOREIGN KEY (message_id) REFERENCES MESSAGES(id)
 );
