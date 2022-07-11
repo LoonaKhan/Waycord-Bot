@@ -14,9 +14,9 @@ RUN npm install
 
 # env variables
 ENV PORT=4000
-ENV USERNAME=
-ENV PASSWORD=
-ENV HOST='localhost'
+ENV USER='dev_user'
+ENV PASSWORD='1234'
+ENV HOST='10.0.0.186'
 
 # actually forwards the port
 EXPOSE 4000
