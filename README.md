@@ -5,8 +5,8 @@ An discord bot archiver.
 
 
 ## todo:
-- move to mysql over mariadb
-- dockerize
+- make app not need root
+- create the tables
 - api endpoints
 - docs + README
 - discord bot
