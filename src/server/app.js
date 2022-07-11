@@ -21,7 +21,14 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 
 // adds all the routes
+const messages = require('./routes/messages')
+app.use('/messages', messages)
 
+const archives = require('./routes/archives')
+app.use('/archives', archives)
+
+const servers = require('./routes/servers')
+app.use('/servers', servers)
 
 
 

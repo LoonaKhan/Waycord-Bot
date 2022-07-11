@@ -17,6 +17,7 @@ const router = Router()
 
 
 // get a server
+// whenever a server-related command is called. prob not needed.
 router.get('/:id',  async (req, res) => {
 
     const { key } = req.headers
@@ -35,10 +36,13 @@ router.get('/:id',  async (req, res) => {
 })
 
 // add a server
+// Used when the bot first joins a server.
 
 // update a server
+// attempts to be used whenever a bot command is used in a server
 
 // delete a server
+// todo: allow the admins to blacklist a server from being tracked?
 
 
 

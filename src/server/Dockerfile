@@ -14,8 +14,8 @@ RUN npm install
 
 # env variables
 ENV PORT=4000
-ENV USERNAME='loona'
-ENV PASSWORD='1234'
+ENV USERNAME=
+ENV PASSWORD=
 ENV HOST='localhost'
 
 # actually forwards the port

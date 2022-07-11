@@ -16,10 +16,13 @@ const router = Router()
 
 
 // get a message
+// whenever we get an archive?
 
 // add a message
+// whenever we archive a message
 
 // delete a message
+// whenever we un-archive something, delete the corresponding message
 
 
 

@@ -21,15 +21,15 @@ const router = Router()
 
 
 // get an archive
+// whenever the user wants to get one of their archives
+// requires title and owner id, user searches their own archives by name. or creation date?
 
 // add an archive
-/*
-* takes in a title, message id, owner id and channel id.
-* */
-
-// update an archive
+//takes in a title, message id, owner id.
 
 // delete an archive
+// user wants to get rid of one
+// can delete by title, or id.
 
 
 

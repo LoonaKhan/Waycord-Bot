@@ -4,7 +4,7 @@
 * Used so we dont unecessarily repeat code.
 * */
 
-const { db } = require('connection')
+const { db } = require('./connection')
 
 module.exports = (queryString, res) => {
     db.query(queryString, (err, result) => {

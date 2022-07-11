@@ -9,14 +9,15 @@ Messages are comprised of:
 - id: message id
 - author: id of the user who sent the message
 - contents: the text of the message 
-- attachments: url's any files sent with the message
-- channel: id of the channel the message was sent in.
+- attachments: url's of any files sent with the message
+- channel: id of the channel the message was sent in
 - creation_time: datetime the message was created
 
-Messages only store what discord already stores. the only user data collected is the user id.
-Anything else the app will need concerning the user can be fetched via id and the discord API, but will not be stored.
+Messages only store what discord already stores. 
+the only user data collected is the user id.
+Anything else concerning the user can be fetched via id and the discord API, but will not be stored.
 There are actually no references to other db tables(author or channel referencing a user or channel table)
-because there simply arent any db objects for those and so little information is needed to store the message date.
+because there arent any tables for those and so little information is needed to store the message data
 
 
 
