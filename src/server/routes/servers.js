@@ -27,7 +27,7 @@ router.get('/:id',  async (req, res) => {
 
     try {
 
-        db.query(``)
+        dbQuery(``)
 
     } catch (err) {
         res.status(500).send(err)

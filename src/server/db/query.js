@@ -6,8 +6,8 @@
 
 const { db } = require('./connection')
 
-module.exports = (queryString, res) => {
-    db.query(queryString, (err, result) => {
+module.exports = (sql, res) => {
+    db.query(sql, (err, result) => {
         if (err){
             res.status(400).send(err)
         }

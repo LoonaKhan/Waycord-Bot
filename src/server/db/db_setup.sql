@@ -1,5 +1,3 @@
--- todo: move to regular mysql over mariadb?
-
 create DATABASE Waycord;
 
 USE Waycord;
@@ -27,7 +25,7 @@ CREATE TABLE MESSAGES(
 CREATE TABLE SERVERS(
     id INT NOT NULL UNIQUE, -- make it auto increment? so that it has no connection to the server
     member_count INT NOT NULL,
-    creation_date date NOT NULL, -- MAYBE JUST MAKE THIS TEXT? easier to encrypt
+    creation_date date NOT NULL, -- todo: MAYBE JUST MAKE THIS TEXT? easier to encrypt
     region VARCHAR(2) NOT NULL, -- might need to be longer
     boost_level INT NOT NULL
 );
@@ -40,7 +38,7 @@ CREATE TABLE ARCHIVES(
     title VARCHAR(255) NOT NULL,
     creator INT NOT NULL,
     message_id INT NOT NULL,
-    -- creation_time -- date created
+    -- creation_time -- todo: date created
 
     PRIMARY KEY (id),
     FOREIGN KEY (message_id) REFERENCES MESSAGES(id)

@@ -30,6 +30,9 @@ app.use('/archives', archives)
 const servers = require('./routes/servers')
 app.use('/servers', servers)
 
+const meta = require('./routes/meta')
+app.use('/', meta)
+
 
 
 // listens to the port
