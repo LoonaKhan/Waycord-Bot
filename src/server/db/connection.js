@@ -6,7 +6,7 @@ require('dotenv').config({path:path.resolve(__dirname, './../.env')})
 //  develop this in a vm and use dev user n stuff
 module.exports = sql.createConnection({
     host: process.env.HOST,
-    user: process.env.USER,
+    user: process.env.USERNAME,
     password: process.env.PASSWORD,
     database: 'Waycord'
 })
