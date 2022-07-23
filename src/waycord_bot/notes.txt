@@ -1,0 +1,24 @@
+bot needs to encrypt all data
+
+bot makes api requests to the server/db
+
+get archives by matching title:
+    can return multiple archives if the title given matches multiple
+
+delete archives:
+    only deletes ONE message.
+
+
+(bot) delete:
+    get by title
+    if list: error
+    if not list(only 1): delete
+
+
+(bot) add:
+    if message id already exists, dont create. todo: since message.id is already unique, we prob dont needa worry
+    title:
+        search by title+creator.id
+            if exists,
+                error
+                or title_1 is the new title
