@@ -4,10 +4,11 @@
 * Archives are the main data of an app.
 *
 * The archives are made up of:
+*   id
 *   title
-*   owner(id)
+*   creator(id)
 *   message(id)
-*   channel(id)
+*   creation_date
 * all the id's are references to another db object
 * */
 
@@ -20,16 +21,102 @@ const router = Router()
 
 
 
-// get an archive
-// whenever the user wants to get one of their archives
-// requires title and owner id, user searches their own archives by name. or creation date?
+// get an archive/s with matching titles.
+// whenever the user wants to get a specifc archive/s
+// requires title and creator id, user searches their own archives by name.
+router.get('/:creator_id/filter', async (req, res) => {
+    const {key} = req.headers
+    const {creator_id} = req.params
+    const {title} = req.body
+
+    if (key === process.env.KEY) {
+
+        try {
+            db.query(`SELECT * FROM ARCHIVES WHERE creator = '${creator_id}' AND title LIKE '%${title}%' ORDER BY id ASC`,
+                (err, result) => {
+                if (err) {
+                    res.status(400).send(err)
+                }
+
+                res.status(201).send(result)
+            })
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    }
+})
+
+// get all archives from a specific user
+// when the user wants all their archives
+// requires creator id
+router.get('/:creator_id', async (req, res) => {
+    const {key} = req.headers
+    const {creator_id} = req.params
+
+    if (key === process.env.KEY) {
+
+        try {
+            db.query(`SELECT * FROM ARCHIVES WHERE creator = '${creator_id}'`,
+                (err, result) => {
+                if (err) {
+                    res.status(400).send(err)
+                }
+
+                res.status(201).send(result)
+            })
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    }
+})
 
 // add an archive
-//takes in a title, message id, owner id.
+//takes in a title, message id, owner id ad creation_date.
+router.post('/', async (req, res) => {
+    const {key} = req.headers
+    //const {creator_id} = req.params
+    const {creator_id, title, message_id, creation_date} = req.body
+
+    if (key === process.env.KEY) {
+
+        try {
+            db.query(`INSERT INTO ARCHIVES(title, creator, message_id, creation_date) VALUES('${title}', '${creator_id}', '${message_id}', '${creation_date}')`,
+                (err, result) => {
+                if (err) {
+                    res.status(400).send(err)
+                }
+
+                res.status(201).send(result)
+            })
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    }
+})
 
 // delete an archive
 // user wants to get rid of one
 // can delete by title, or id.
+router.delete('/:id', async (req, res) => {
+
+    const {key} = req.headers
+    const {id} = req.params
+
+    if (key === process.env.KEY) {
+
+        try {
+            db.query(`DELETE FROM ARCHIVES WHERE id = '${id}'`, (err, result) => {
+                if (err) {
+                    res.status(400).send(err)
+                }
+
+                res.status(201).send(result)
+            })
+        } catch (err) {
+            res.status(500).send(err)
+        }
+    }
+})
 
 
 

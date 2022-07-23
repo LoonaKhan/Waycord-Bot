@@ -51,7 +51,8 @@ router.post('/', async (req, res) =>{
     if (key === process.env.KEY){
         try {
 
-            db.query(`INSERT INTO MESSAGES(id, author, contents, channel, creation_date) VALUES('${id}', '${author}', '${contents}', '${channel}', '${creation_date}')`, (err, result) => {
+            db.query(`INSERT INTO MESSAGES(id, author, contents, channel, creation_date) VALUES('${id}', '${author}', '${contents}', '${channel}', '${creation_date}')`,
+                (err, result) => {
             if (err){
                 res.status(400).send(err)
             }
