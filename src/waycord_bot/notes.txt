@@ -1,3 +1,16 @@
+commands should be split up across files
+how?
+    bot.py file loads in the bot object and exports
+    all command files import it and make commands and export them
+    main.py imports it. functions like an app.js
+
+components:
+    bot.py: loads the bot object and can be exported
+    command files: have all the commands
+    main.py: imports all commands and bot object
+    encryption modules: encrypt all data. used by calls.py
+    calls.py: sends all requests to the API. uses the encryption
+
 bot needs to encrypt all data
 
 bot makes api requests to the server/db
