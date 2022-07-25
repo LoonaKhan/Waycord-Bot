@@ -26,7 +26,9 @@ router.get('/:id', async (req, res) =>{
     if (key === process.env.KEY){
         try {
 
-            db.query(`SELECT * FROM MESSAGES WHERE id = '${id}'`, (err, result) => {
+            db.execute(`SELECT * FROM MESSAGES WHERE id = ?`,
+                [id],
+                (err, result) => {
             if (err){
                 res.status(400).send(err)
             }
@@ -51,7 +53,8 @@ router.post('/', async (req, res) =>{
     if (key === process.env.KEY){
         try {
 
-            db.query(`INSERT INTO MESSAGES(id, author, contents, channel, creation_date) VALUES('${id}', '${author}', '${contents}', '${channel}', '${creation_date}')`,
+            db.execute(`INSERT INTO MESSAGES(id, author, contents, channel, creation_date) VALUES(?, ?, ?, ?, ?)`,
+                [id, author, contents, channel, creation_date],
                 (err, result) => {
             if (err){
                 res.status(400).send(err)
@@ -76,7 +79,9 @@ router.delete('/:id', async (req, res) => {
     if (key === process.env.KEY) {
         try {
 
-            db.query(`DELETE FROM MESSAGES WHERE id = '${id}'`, (err, result) => {
+            db.execute(`DELETE FROM MESSAGES WHERE id = ?`,
+                [id],
+                (err, result) => {
             if (err){
                 res.status(400).send(err)
             }

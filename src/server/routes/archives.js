@@ -32,7 +32,8 @@ router.get('/:creator_id/filter', async (req, res) => {
     if (key === process.env.KEY) {
 
         try {
-            db.query(`SELECT * FROM ARCHIVES WHERE creator = '${creator_id}' AND title LIKE '%${title}%' ORDER BY id ASC`,
+            db.execute(`SELECT * FROM ARCHIVES WHERE creator = ? AND title LIKE ? ORDER BY id ASC`,
+                [creator_id, `%${title}%`],
                 (err, result) => {
                 if (err) {
                     res.status(400).send(err)
@@ -56,7 +57,8 @@ router.get('/:creator_id', async (req, res) => {
     if (key === process.env.KEY) {
 
         try {
-            db.query(`SELECT * FROM ARCHIVES WHERE creator = '${creator_id}'`,
+            db.execute(`SELECT * FROM ARCHIVES WHERE creator = ?`,
+                [creator_id],
                 (err, result) => {
                 if (err) {
                     res.status(400).send(err)
@@ -80,7 +82,8 @@ router.post('/', async (req, res) => {
     if (key === process.env.KEY) {
 
         try {
-            db.query(`INSERT INTO ARCHIVES(title, creator, message_id, creation_date) VALUES('${title}', '${creator_id}', '${message_id}', '${creation_date}')`,
+            db.execute(`INSERT INTO ARCHIVES(title, creator, message_id, creation_date) VALUES(?, ?, ?, ?)`,
+                [title, creator_id, message_id, creation_date],
                 (err, result) => {
                 if (err) {
                     res.status(400).send(err)
@@ -105,7 +108,9 @@ router.delete('/:id', async (req, res) => {
     if (key === process.env.KEY) {
 
         try {
-            db.query(`DELETE FROM ARCHIVES WHERE id = '${id}'`, (err, result) => {
+            db.execute(`DELETE FROM ARCHIVES WHERE id = ?`,
+                [id],
+                (err, result) => {
                 if (err) {
                     res.status(400).send(err)
                 }

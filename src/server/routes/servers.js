@@ -26,7 +26,8 @@ router.get('/:id',  async (req, res) => {
     if (key === process.env.KEY) { // if the key is invalid
 
         try {
-            db.query(`SELECT * FROM SERVERS WHERE id = '${id}'`,
+            db.execute(`SELECT * FROM SERVERS WHERE id = ?`,
+                [id],
             (err, result) => {
                 if (err) {
                     res.status(400).send(err)
@@ -51,7 +52,8 @@ router.post('/', async (req, res) => {
 
     try {
 
-        db.query(`INSERT INTO SERVERS (member_count, creation_date, boost_level) VALUES('${member_count}', '${creation_date}', '${boost_level}')`,
+        db.execute(`INSERT INTO SERVERS (member_count, creation_date, boost_level) VALUES(?, ?, ?)`,
+            [member_count, creation_date, boost_level],
             (err, result) => {
             if (err) {
                 res.status(400).send(err)
@@ -77,7 +79,8 @@ router.put('/:id', async (req, res) => {
 
     try {
 
-        db.query(`UPDATE SERVERS SET member_count = ${member_count}, boost_level = ${boost_level} WHERE id = '${id}'`,
+        db.execute(`UPDATE SERVERS SET member_count = ?, boost_level = ? WHERE id = ?`,
+            [member_count, boost_level, id],
             (err, result) => {
             if (err) {
                 res.status(400).send(err)
@@ -104,7 +107,8 @@ router.delete('/:id', async  (req, res) => {
 
         try {
 
-            db.query(`DELETE FROM SERVERS WHERE id = '${id}'`,
+            db.execute(`DELETE FROM SERVERS WHERE id = ?`,
+                [id],
                 (err, result) =>{
 
                 if (err) {
