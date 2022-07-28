@@ -22,7 +22,7 @@ docker run -p 3000:4000 monemperor/server
 ```
 
 ## todo:
-- api endpoints
+- api calls
 - docs + README
 - discord bot
 - host it somewhere.
