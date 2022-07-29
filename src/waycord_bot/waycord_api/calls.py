@@ -11,6 +11,7 @@ date: July 28 2022
 todo:
     make it several specialized methods.
     maybe merge add and delete methods into one?
+    test SQL injections
 
 """
 
