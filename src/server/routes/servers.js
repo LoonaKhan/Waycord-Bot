@@ -50,7 +50,8 @@ router.post('/', async (req, res) => {
     const {key} = req.headers
     const { member_count, creation_date, boost_level } = req.body
 
-    try {
+    if (key === process.env.KEY){
+        try {
 
         db.execute(`INSERT INTO SERVERS (member_count, creation_date, boost_level) VALUES(?, ?, ?)`,
             [member_count, creation_date, boost_level],
@@ -66,6 +67,7 @@ router.post('/', async (req, res) => {
     } catch (err) {
         res.status(500).send(err)
     }
+    }
 
 })
 
@@ -77,7 +79,8 @@ router.put('/:id', async (req, res) => {
     const { id } = req.params
     const { member_count, boost_level } = req.body
 
-    try {
+    if (key === process.env.KEY){
+        try {
 
         db.execute(`UPDATE SERVERS SET member_count = ?, boost_level = ? WHERE id = ?`,
             [member_count, boost_level, id],
@@ -92,6 +95,7 @@ router.put('/:id', async (req, res) => {
 
     } catch (err) {
         res.status(500).send(err)
+    }
     }
 
 })
