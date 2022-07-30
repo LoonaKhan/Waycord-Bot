@@ -8,6 +8,7 @@ dev: lvlonEmperor
 date: July 28 2022
 """
 
+import sys
 import requests as req
 import json
 
@@ -190,6 +191,8 @@ if __name__ == '__main__': # tests
     # addArchive test
     #print(addArchive(key="key", creator_id=1, title="lol", message_id=-1, creation_date="idk")) # proper
     #print(addArchive(key="key", creator_id=1, title="lol", message_id=-100, creation_date="idk")) # message does not exist
+
+    sys.exit()
 
 
 
