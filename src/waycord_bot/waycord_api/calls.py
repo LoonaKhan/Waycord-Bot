@@ -17,12 +17,6 @@ server_url = base_url + "servers/"
 message_url = base_url + "messages/"
 archive_url = base_url + "archives/"
 
-def call(type, url, headers={}, params={}, data={}):
-    # general api call
-    # in python data is the same thing as body
-    res = req.request(method=type, url=url, headers=headers, params=params, data=data)
-    return json.loads(res.text)
-
 
 
 # Server calls
