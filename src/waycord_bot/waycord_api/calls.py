@@ -134,14 +134,6 @@ def delArchive(key:str, id:int):
 
 
 if __name__ == '__main__': # tests
-
-    """ call()
-    print(call(type="GET",
-               url="http://localhost:4000/messages/-4", # put params in the url
-               headers={"key":"key"}
-            ))
-    """
-
     # Key test
     #print(getMsg(key="key", id=1)) # wrong key. dosent run
 
