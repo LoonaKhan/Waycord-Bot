@@ -35,3 +35,17 @@ delete archives:
             if exists,
                 error
                 or title_1 is the new title
+
+
+BOT COMMANDS
+    archive a message with options
+        message id given by reply or message id?
+    view all archives
+        -s for a specific server
+        or -a for all
+        -a by default in dm's
+        -s default in a server
+    search for an archive
+    help commands
+
+bot command: -w

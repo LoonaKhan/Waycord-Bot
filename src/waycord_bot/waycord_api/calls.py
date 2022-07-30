@@ -1,17 +1,11 @@
 """
-All the api calls to the server.
+Wrapper for the API
 
 The bot will need to call on the server/db for data instead of storing it locally.
 When it does, these methods will be used.
-This doubles as a wrapper for the API
 
 dev: lvlonEmperor
 date: July 28 2022
-
-todo:
-    finish message and archive calls
-    test message and archive calls
-    test SQL injections
 """
 
 import requests as req
@@ -83,7 +77,7 @@ def getMsg(key:str, id:int):
     return json.loads(res.text)
 
 def addMsg(key:str, id:int, author:int, contents:str, channel:int, creation_date:str):
-    res = req.get(url=message_url,
+    res = req.post(url=message_url,
                   headers={
                       "key": key
                   },
@@ -154,37 +148,49 @@ if __name__ == '__main__': # tests
             ))
     """
 
+    # Key test
+    #print(delMsg(key="ke", id=1)) # wrong key. dosent run
 
     # getServer tests
-    # print(getServer(key="hkey", id=1)) # wrong key. dosent run
     # print(getServer(key="key", id=-1)) # nonexistent id. dosent run
     # print(getServer(key="key", id=3)) # proper key and id. runs
 
 
     # addServer
+    # Bad types here are fine since the user cannot interact with the servers
 
     # proper. runs
     #print(addServer(key="key", member_count=0, creation_date="sometime", boost_level=2))
-    # wrong key. dosent run
-    #print(addServer(key="hkey", member_count=0, creation_date="sometime", boost_level=2))
-    # negative values. runs
-    #print(addServer(key="key", member_count=-1, creation_date="sometime", boost_level=-1))
-    # bad type. runs
+    # bad creation_date type. runs. but this is fine since the user cannot edit this
     #print(addServer(key="key", member_count=0, creation_date=1, boost_level=2))
-    # bad type: "0". runs since JS converts it automatically
+    # bad member_count type: "0". runs since JS converts it automatically
     #print(addServer(key="key", member_count="0", creation_date="sometime", boost_level=2))
-    # bad type: "l". dosent run since JS cant convert "l" to a number
+    # bad member_count type: "l". dosent run since JS cant convert "l" to a number
     #print(addServer(key="key", member_count="l", creation_date="sometime", boost_level=2))
 
 
     # delServer
+    # because all delete methods are the same, no other tests will be kept
     #print(delServer(key="key", id=12)) # proper
-    #print(delServer(key="kehy", id=10)) # wrong id. dosent run
     #print(delServer(key="key", id=-10)) # non-existant id. runs, but nothing happens
 
     # updateServer
     #print(updateServer(key="key", id=9, member_count=10, boost_level=0)) # proper
-    #print(updateServer(key="keyy", id=9, member_count=10, boost_level=0)) # invalid key. dosent run
     #print(updateServer(key="key", id=1, member_count=10, boost_level=0)) # invalid id. runs, but dosent do anything
     #print(updateServer(key="key", id=9, member_count=10, boost_level="g")) # invalid type "g". dosent run
     #print(updateServer(key="key", id=9, member_count=11, boost_level="0")) # invalid type. runs because JS
+
+
+    # getMsg tests
+    #print(getMsg(key="key", id=-1)) # proper, runs
+    #print(getMsg(key="key", id="g")) # wrong type or non-existent id, just dosent return a message
+
+    # addMsg tests
+    #print(addMsg(key="key", id=-3, author=372, contents="", channel=100, creation_date="today")) # proper
+    #print(addMsg(key="key", id=-4, author=372, contents="f", channel=100, creation_date="today")) # id already exists
+    # invalid type: id, author, contents, channel and creation date. only dosent run when integer fields are not ints
+    # the only user-given field here is id. and id will need to be validated. ensure it
+    #print(addMsg(key="key", id=-6, author=372, contents="", channel=100, creation_date="today"))
+
+
+
