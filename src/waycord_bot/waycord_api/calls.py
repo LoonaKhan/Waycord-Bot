@@ -143,7 +143,7 @@ if __name__ == '__main__': # tests
     """
 
     # Key test
-    #print(delMsg(key="ke", id=1)) # wrong key. dosent run
+    #print(getMsg(key="key", id=1)) # wrong key. dosent run
 
     # getServer tests
     # print(getServer(key="key", id=-1)) # nonexistent id. dosent run
@@ -183,8 +183,21 @@ if __name__ == '__main__': # tests
     #print(addMsg(key="key", id=-3, author=372, contents="", channel=100, creation_date="today")) # proper
     #print(addMsg(key="key", id=-4, author=372, contents="f", channel=100, creation_date="today")) # id already exists
     # invalid type: id, author, contents, channel and creation date. only dosent run when integer fields are not ints
-    # the only user-given field here is id. and id will need to be validated. ensure it
+    # the only user-given field here is id. and archives already validates it
     #print(addMsg(key="key", id=-6, author=372, contents="", channel=100, creation_date="today"))
+
+    # getUserArchivesByTitle test
+    #print(getUserArchivesByTitle(key="key", creator_id=2, title="")) # proper
+    #print(getUserArchivesByTitle(key="key", creator_id=3, title=""))# creator dosent exits. runs but returns empty
+    #print(getUserArchivesByTitle(key="key", creator_id=1, title="z"))# title doesnt match. runs but empty array
+
+    # getUserArchives test
+    #print(getUserArchives(key="key", creator_id=2)) # proper
+    #print(getUserArchives(key="key", creator_id=3))# dosent exist. runs but empty array
+
+    # addArchive test
+    #print(addArchive(key="key", creator_id=1, title="lol", message_id=-1, creation_date="idk")) # proper
+    #print(addArchive(key="key", creator_id=1, title="lol", message_id=-100, creation_date="idk")) # message does not exist
 
 
 
