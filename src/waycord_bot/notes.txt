@@ -49,3 +49,5 @@ BOT COMMANDS
     help commands
 
 bot command: -w
+
+todo: no server commands. remove it from the database.
