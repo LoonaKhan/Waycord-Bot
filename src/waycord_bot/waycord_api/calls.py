@@ -9,10 +9,9 @@ dev: lvlonEmperor
 date: July 28 2022
 
 todo:
-    make it several specialized methods.
-    maybe merge add and delete methods into one?
+    finish message and archive calls
+    test message and archive calls
     test SQL injections
-
 """
 
 import requests as req
@@ -76,9 +75,26 @@ def delServer(key:str, id:int):
 
 
 #  Messages calls
-def getMsg(): pass
+def getMsg(key:str, id:int):
+    res = req.get(url=message_url + f"{id}",
+                  headers={
+                      "key": key
+                  })
+    return json.loads(res.text)
 
-def addMsg(): pass
+def addMsg(key:str, id:int, author:int, contents:str, channel:int, creation_date:str):
+    res = req.get(url=message_url,
+                  headers={
+                      "key": key
+                  },
+                  data={
+                      "id": id,
+                      "author": author,
+                      "contents": contents,
+                      "channel": channel,
+                      "creation_date": creation_date
+                  })
+    return json.loads(res.text)
 
 def delMsg(key:str, id:int):
     res = req.delete(url=message_url + f"{id}",
@@ -90,11 +106,35 @@ def delMsg(key:str, id:int):
 
 
 # Archives calls
-def getUserArchivesByTitle(): pass
+def getUserArchivesByTitle(key:str, creator_id:int, title:str):
+    res = req.get(url=archive_url + f"{creator_id}/filter",
+                  headers={
+                      "key": key
+                  },
+                  data={
+                      "title": title
+                  })
+    return json.loads(res.text)
 
-def getUserArchives(): pass
+def getUserArchives(key:str, creator_id:int):
+    res = req.get(url=archive_url + f"{creator_id}",
+                  headers={
+                      "key": key
+                  })
+    return json.loads(res.text)
 
-def addArchive(): pass
+def addArchive(key:str, creator_id:int, title:str, message_id:int, creation_date:str):
+    res= req.post(url=archive_url,
+                  headers={
+                      "key": key
+                  },
+                  data={
+                      "creator_id": creator_id,
+                      "title": title,
+                      "message_id": message_id,
+                      "creation_date": creation_date
+                  })
+    return json.loads(res.text)
 
 def delArchive(key:str, id:int):
     res = req.delete(url=archive_url + f"{id}",
