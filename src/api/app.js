@@ -1,5 +1,5 @@
 /*
-* Waycord server.
+* Waycord api.
 *
 * Dev: Loona/MonEmperor
 * date: 07/03/2022

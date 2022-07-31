@@ -1,7 +1,7 @@
 """
 Wrapper for the API
 
-The bot will need to call on the server/db for data instead of storing it locally.
+The bot will need to call on the api/db for data instead of storing it locally.
 When it does, these methods will be used.
 
 dev: lvlonEmperor
@@ -22,7 +22,7 @@ archive_url = base_url + "archives/"
 
 # Server calls
 def getServer(key:str, id:int):
-    # gets a server by ID
+    # gets a api by ID
     res = req.get(url=server_url+ f"{id}",
                   headers={
                       "key": key
@@ -30,7 +30,7 @@ def getServer(key:str, id:int):
     return json.loads(res.text)
 
 def addServer(key:str, member_count:int, creation_date:str, boost_level:int):
-    # adds a new server based on info given
+    # adds a new api based on info given
     res = req.post(url=server_url,
                    headers={
                        "key": key
@@ -43,7 +43,7 @@ def addServer(key:str, member_count:int, creation_date:str, boost_level:int):
     return json.loads(res.text)
 
 def updateServer(key:str, id:int, member_count:int, boost_level:int):
-    # updates a server based on the info given
+    # updates a api based on the info given
     res = req.put(url=server_url + f"{id}",
                   headers={
                       "key": key
@@ -55,7 +55,7 @@ def updateServer(key:str, id:int, member_count:int, boost_level:int):
     return json.loads(res.text)
 
 def delServer(key:str, id:int):
-    # deletes a server by id
+    # deletes a api by id
     res = req.delete(url=server_url + f"{id}",
                      headers={
                          "key": key

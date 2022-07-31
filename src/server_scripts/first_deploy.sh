@@ -1,8 +1,8 @@
 #!/bin/sh
 # runs the first deployment
 # todo:
-# install npm and run npm init before running the server image
-# do the same with python once the bot is ready
+#   install npm and run npm init before running the api image
+#   do the same with python once the bot is ready
 
 # installs docker
 sudo apt remove docker docker-engine docker.io # removes any existing docker packages
@@ -31,11 +31,11 @@ sudo docker pull mariadb
 # you need to put the root password
 docker run --detach --name mariadb_dev --env MYSQL_ROOT_PASSWORD= -p 3306:3306  mariadb
 
-# builds and runs the server image
-cd /root/Waycord/src/server
+# builds and runs the api image
+cd /root/Waycord/src/api
 docker build -t server .
 docker run --detach --name server -e PASSWORD= -e USERNAME= -e HOST= -e KEY= -p 3000:4000 server
-#node /root/Waycord/src/server/app.js # make this use the docker image instead
+#node /root/Waycord/src/api/app.js # make this use the docker image instead
 
 # runs the bot
 cd /root/Waycord/src

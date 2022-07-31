@@ -1,14 +1,14 @@
 #!/bin/sh
 
 # redeploys the app
-# rebuilds and runs the server container
+# rebuilds and runs the api container
 # rebuilds and runs the bot container
 
-# builds and runs the server image
-cd /root/Waycord/src/server
+# builds and runs the api image
+cd /root/Waycord/src/api
 docker build -t server .
 docker run --detach --name server -e PASSWORD= -e USERNAME= -e HOST= -e KEY= -p 3000:4000 server
-#node /root/Waycord/src/server/app.js # make this use the docker image instead
+#node /root/Waycord/src/api/app.js # make this use the docker image instead
 
 # runs the bot
 cd /root/Waycord/src

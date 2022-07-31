@@ -2,10 +2,10 @@
 FROM mariadb:10.8.3
 FROM node:16.13.1
 
-# copies the server package
+# copies the api package
 COPY . /app
 
-# working directory = src/server.
+# working directory = src/api.
 # running npm start or node app.js now works as normal
 WORKDIR /app
 
