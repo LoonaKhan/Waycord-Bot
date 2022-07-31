@@ -21,18 +21,6 @@ CREATE TABLE MESSAGES(
     channel INT NOT NULL
 );
 
--- Servers
--- in order to keep anonymity, we only store certain bits of information.
--- servers are mainly for analytics
-CREATE TABLE SERVERS(
-    id INT AUTO_INCREMENT,
-    member_count INT NOT NULL,
-    creation_date TEXT NOT NULL,
-    boost_level INT NOT NULL,
-
-    PRIMARY KEY (id)
-);
-
 -- archive
 -- contains a message + title and other info to archive
 -- the main part of the app

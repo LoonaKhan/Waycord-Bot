@@ -27,8 +27,8 @@ app.use('/messages', messages)
 const archives = require('./routes/archives')
 app.use('/archives', archives)
 
-const servers = require('./routes/servers')
-app.use('/servers', servers)
+/*const servers = require('./routes/servers')
+app.use('/servers', servers)*/
 
 const meta = require('./routes/meta')
 app.use('/', meta)
