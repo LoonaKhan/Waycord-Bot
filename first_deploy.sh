@@ -1,4 +1,8 @@
 #!/bin/sh
+# runs the first deployment
+# todo:
+# install npm and run npm init before running the server image
+# do the same with python once the bot is ready
 
 # installs docker
 sudo apt remove docker docker-engine docker.io # removes any existing docker packages
