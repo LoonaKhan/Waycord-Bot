@@ -76,7 +76,6 @@ router.get('/:creator_id', async (req, res) => {
 //takes in a title, message id, owner id ad creation_date.
 router.post('/', async (req, res) => {
     const {key} = req.headers
-    //const {creator_id} = req.params
     const {creator_id, title, message_id, creation_date} = req.body
 
     if (key === process.env.KEY) {
@@ -104,12 +103,13 @@ router.delete('/:id', async (req, res) => {
 
     const {key} = req.headers
     const {id} = req.params
+    const { author } = req.body
 
     if (key === process.env.KEY) {
 
         try {
-            db.execute(`DELETE FROM ARCHIVES WHERE id = ?`,
-                [id],
+            db.execute(`DELETE FROM ARCHIVES WHERE id = ? AND creator = ?`,
+                [id, author],
                 (err, result) => {
                 if (err) {
                     res.status(400).send(err)
