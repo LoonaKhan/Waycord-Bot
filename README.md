@@ -1,4 +1,4 @@
-# Waycord (README out of date)
+# Waycord-Bot (README out of date)
 
 An discord bot archiver.
 
