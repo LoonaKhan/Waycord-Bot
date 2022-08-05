@@ -4,6 +4,10 @@
 # rebuilds and runs the api container
 # rebuilds and runs the bot container
 
+# pulls the repo
+cd /root/Waycord/
+git pull
+
 # builds and runs the api image
 cd /root/Waycord/src/api
 docker build -t server .
