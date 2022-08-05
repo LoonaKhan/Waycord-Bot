@@ -80,6 +80,47 @@ async def add(ctx, title:str, message:int): # todo: make this a reply to the des
     except:
         await ctx.send("**ERROR**: could not create archive")
 
-# get all user archives; todo: allows the user to search for an archive?
+# get all user archives
+@bot.command(aliases=["l", "ls"])
+async def list(ctx):
+    """
+    Lists all of a user's archives.
+
+    Just runs the api request.
+
+    todo:
+        only show messages from the current server for the sake of privacy
+            or add filters
+        make it embedded
+        exception handling
+    """
+
+    if ctx.author.bot: return # does not answer to bots
+
+    try:
+        res = getUserArchives(key=KEY, creator_id=ctx.author.id)
+
+        # make it look good
+
+        await ctx.send(res)
+    except:
+        pass
 
 # get a specific archive
+@bot.command(aliases=["s"])
+async def search(ctx, title):
+    """
+    Selects all of a user's archives with the appropriate title.
+
+    todo:
+        exception handling
+        embeds
+    """
+    if ctx.author.bot: return # does not answer to bots
+
+    try:
+        res = getUserArchivesByTitle(key=KEY, creator_id=ctx.author.id, title=title)
+
+        await ctx.send(res)
+    except:
+        pass
