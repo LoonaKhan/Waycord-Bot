@@ -1,7 +1,6 @@
-# Waycord
+# Waycord (README out of date)
 
 An discord bot archiver.
-read me needs to be updated.
 
 # dependancies
 - mariadb:10.8.3 docker image
