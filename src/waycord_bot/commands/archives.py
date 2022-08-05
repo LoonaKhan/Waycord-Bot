@@ -22,7 +22,10 @@ async def delete(ctx, id:int):
     if ctx.author.bot: return # does not answer to bots
 
     try:
-        delArchive(key=KEY, id=id)
+        res = delArchive(key=KEY, id=id, creator=ctx.author.id)
+        if res['affectedRows'] == 0:
+            await ctx.send("**ERROR**: could not delete archive")
+            return
         await ctx.send("deleted")
     except:
         await ctx.send("**ERROR**: could not delete archive")
