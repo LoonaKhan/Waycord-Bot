@@ -103,13 +103,13 @@ router.delete('/:id', async (req, res) => {
 
     const {key} = req.headers
     const {id} = req.params
-    const { author } = req.body
+    const { creator } = req.body
 
     if (key === process.env.KEY) {
 
         try {
             db.execute(`DELETE FROM ARCHIVES WHERE id = ? AND creator = ?`,
-                [id, author],
+                [id, creator],
                 (err, result) => {
                 if (err) {
                     res.status(400).send(err)

@@ -81,10 +81,13 @@ def addArchive(key:str, creator_id:int, title:str, message_id:int, creation_date
                   })
     return json.loads(res.text)
 
-def delArchive(key:str, id:int):
+def delArchive(key:str, id:int, creator:int):
     res = req.delete(url=archive_url + f"{id}",
                      headers={
                          "key": key
+                     },
+                     data={
+                         "creator": creator
                      })
     return json.loads(res.text)
 
@@ -105,6 +108,9 @@ if __name__ == '__main__': # tests
     # the only user-given field here is id. and archives already validates it
     #print(addMsg(key="key", id=-6, author=372, contents="", channel=100, creation_date="today"))
 
+    # delMsg test
+    #print(delMsg(key="key", id=-5))
+
     # getUserArchivesByTitle test
     #print(getUserArchivesByTitle(key="key", creator_id=2, title="")) # proper
     #print(getUserArchivesByTitle(key="key", creator_id=3, title=""))# creator dosent exits. runs but returns empty
@@ -117,6 +123,9 @@ if __name__ == '__main__': # tests
     # addArchive test
     #print(addArchive(key="key", creator_id=1, title="lol", message_id=-1, creation_date="idk")) # proper
     #print(addArchive(key="key", creator_id=1, title="lol", message_id=-100, creation_date="idk")) # message does not exist
+
+    # delArchive test
+    #print(delArchive(key="key", id=8, creator=1))
 
     sys.exit()
 
