@@ -60,16 +60,16 @@ async def add(ctx, title:str, message:int): # todo: make this a reply to the des
     try:
         msg = await ctx.fetch_message(message)
         resAddMsg = addMsg(key=KEY,
-                           id=int(msg.id),
-                           author=int(msg.author.id),
+                           id=str(msg.id),
+                           author=str(msg.author.id),
                            contents=str(msg.content),
-                           channel=int(msg.channel.id),
+                           channel=str(msg.channel.id),
                            creation_date=str(msg.created_at))
 
         res = addArchive(key=KEY,
-                         creator_id=ctx.author.id,
+                         creator_id=str(ctx.author.id),
                          title=title,
-                         message_id=msg.id, # requires message object to exist in the database
+                         message_id=str(msg.id), # requires message object to exist in the database
                          creation_date=str(ctx.message.created_at))
 
         if res['affectedRows'] == 0:
@@ -77,12 +77,12 @@ async def add(ctx, title:str, message:int): # todo: make this a reply to the des
             return
         await ctx.send(f"Created archive, **{title}**, with ID: **{res['insertId']}**")
 
-    except:
-        await ctx.send("**ERROR**: could not create archive")
+    except Exception as e:
+        await ctx.send(f"**ERROR**: could not create archive: {e}")
 
 # get all user archives
 @bot.command(aliases=["l", "ls"])
-async def list(ctx):
+async def list(ctx, filter="server"):
     """
     Lists all of a user's archives.
 
@@ -95,16 +95,25 @@ async def list(ctx):
         exception handling
     """
 
-    if ctx.author.bot: return # does not answer to bots
+    if ctx.author.bot: return  # does not answer to bots
 
-    try:
-        res = getUserArchives(key=KEY, creator_id=ctx.author.id)
+    res = getUserArchives(key=KEY, creator_id=ctx.author.id)
 
-        # make it look good
+    em = discord.Embed(title=f"{ctx.author.name}'s Archives")
 
-        await ctx.send(res)
-    except:
-        pass
+    for a in res:
+        # take the message id and make an api call to get that message
+        msg = getMsg(key=KEY, id=a['message_id'])[0]
+
+        em.add_field(name=f"**{a['title']}**",
+                     value=f"**message**: {a['message_id']}\n"
+                            f"**contents**: {msg['contents']}\n\n",
+                     inline=False)
+
+    dm_channel = await bot.fetch_user(ctx.author.id)
+    await discord.DMChannel.send(dm_channel, embed=em)
+
+    await ctx.send("DM'd you your archives!")
 
 # get a specific archive
 @bot.command(aliases=["s"])
@@ -118,9 +127,22 @@ async def search(ctx, title):
     """
     if ctx.author.bot: return # does not answer to bots
 
-    try:
-        res = getUserArchivesByTitle(key=KEY, creator_id=ctx.author.id, title=title)
+    res = getUserArchivesByTitle(key=KEY, creator_id=ctx.author.id, title=title)
 
-        await ctx.send(res)
-    except:
-        pass
+    em = discord.Embed(title=f"{ctx.author.name}'s Archives")
+
+    for a in res:
+        # take the message id and make an api call to get that message
+        msg = getMsg(key=KEY, id=a['message_id'])[0]
+
+        em.add_field(name=f"**{a['title']}**",
+                     value=f"**id**: {a['id']}\n"
+                           f"**message**: {a['message_id']}\n"
+                           f"**creation date**: {a['creation_date']}\n"
+                           f"**contents**: {msg['contents']}\n\n",
+                     inline=False)
+
+    dm_channel = await bot.fetch_user(ctx.author.id)
+    await discord.DMChannel.send(dm_channel, embed=em)
+
+    await ctx.send(res)
