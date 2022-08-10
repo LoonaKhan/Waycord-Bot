@@ -11,7 +11,6 @@ USE Waycord;
 -- this does mean that if the message is deleted, all other data will be deleted however.
 CREATE TABLE MESSAGES(
     id VARCHAR(255) NOT NULL UNIQUE,
-    server VARCHAR(255) NOT NULL,
     channel VARCHAR(255) NOT NULL,
     author VARCHAR(255) NOT NULL, -- sender of the message
     contents TEXT NOT NULL, -- message contents, the text.
