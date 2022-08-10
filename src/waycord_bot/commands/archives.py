@@ -1,7 +1,6 @@
 """
-All archived commands
+All archive-related commands
 """
-import asyncio
 import discord
 from utils.load_env import *
 from bot_info import bot, c
@@ -89,10 +88,8 @@ async def list(ctx, filter="server"):
     Just runs the api request.
 
     todo:
-        only show messages from the current server for the sake of privacy
-            or add filters
-        make it embedded
-        exception handling
+        make embeds look better
+        attachments
     """
 
     if ctx.author.bot: return  # does not answer to bots
@@ -122,8 +119,8 @@ async def search(ctx, title):
     Selects all of a user's archives with the appropriate title.
 
     todo:
-        exception handling
-        embeds
+        make embeds look better
+        show attachements
     """
     if ctx.author.bot: return # does not answer to bots
 
@@ -146,3 +143,20 @@ async def search(ctx, title):
     await discord.DMChannel.send(dm_channel, embed=em)
 
     await ctx.send(res)
+
+@bot.command()
+async def stats(ctx):
+    """
+    Shows how many embeds a user has made
+    :param ctx:
+    :return:
+    """
+    if ctx.author.bot: return  # does not answer to bots
+
+    em = discord.Embed(title=f"{ctx.author.name}'s statistics") # the embed
+    archives = getUserArchives(key=KEY, creator_id=ctx.author.id) # the archives
+
+    em.set_thumbnail(url=ctx.author.avatar_url)
+    em.add_field(name="Archives count", value=str(len(archives)), inline=False)
+
+    await ctx.send(embed=em)
