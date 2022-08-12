@@ -31,7 +31,7 @@ async def delete(ctx, id:int):
 
 # add an archive
 @bot.command(aliases=["a"])
-async def add(ctx, title:str, message:int): # todo: make this a reply to the desired message?
+async def add(ctx, title:str):
     """
     Adds an archive
 
@@ -42,22 +42,17 @@ async def add(ctx, title:str, message:int): # todo: make this a reply to the des
     it wont be duplicated, nor throw an error.
 
     We create the archive using the message data.
-
-    todo:
-        Exception handling needs to be a lot better
-            error handling and appropriate error messages at each step
-                res['sqlMessage']? needs to be spliced tho
-                res['code']? unreadable for end-user
-                custom error code based off inference?
-        allow replies to messages instead of using a message id
-            simpler for the end user
-
     """
 
     if ctx.author.bot: return # does not answer to bots
 
     try:
-        msg = await ctx.fetch_message(message)
+        try:
+            msg = await ctx.fetch_message(ctx.message.reference.message_id)
+        except:
+            await ctx.send("You need to reply to a message to make an archive")
+            return
+
         resAddMsg = addMsg(key=KEY,
                            id=str(msg.id),
                            author=str(msg.author.id),
@@ -121,6 +116,7 @@ async def search(ctx, title):
     todo:
         make embeds look better
         show attachements
+        include jump_url
     """
     if ctx.author.bot: return # does not answer to bots
 
