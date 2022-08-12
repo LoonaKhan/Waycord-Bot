@@ -7,6 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
       <excludeFolder url="file://$MODULE_DIR$/src/waycord_bot/venv" />
+      <excludeFolder url="file://$MODULE_DIR$/src/waycord_bot/waycord_bot/venv" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.10 (Waycord)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
